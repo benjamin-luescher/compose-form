@@ -5,9 +5,6 @@ The library uses reflection, to provide more flexibility in your form design. Wh
 
 ![ComposeForm](/images/logo.png "ComposeForm")
 
-## Overview
-[[_TOC_]]
-
 ## Getting Started
 To start using the library in your Android Compose project, follow these steps:
 * Add the library as a dependency in your build.gradle file.
