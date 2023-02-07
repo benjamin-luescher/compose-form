@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -37,6 +38,13 @@ android {
         compose_version = '1.2.0'
         kotlin_version = '1.7.0'
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -54,4 +62,18 @@ dependencies {
 
     // Reflection
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.benjamin-luescher'
+            artifactId = 'compose-form'
+            version = '0.2.0-alpha'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
