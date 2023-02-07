@@ -1,4 +1,6 @@
 # Android Compose Form Library
+![https://jitpack.io/#benjamin-luescher/compose-form](https://jitpack.io/v/benjamin-luescher/compose-form.svg)
+
 This library provides an easy-to-use and customizable solution for building forms in Android Jetpack Compose. It includes form fields such as text input, pickers, checkbox, and more, with built-in validators to ensure accurate user input. Data binding is also supported, making it easy to work with form data in your code.
 
 The library uses reflection, to provide more flexibility in your form design. Whether you're building a complex registration form or a simple feedback form, this library has you covered.
@@ -7,9 +9,21 @@ The library uses reflection, to provide more flexibility in your form design. Wh
 
 ## Getting Started
 To start using the library in your Android Compose project, follow these steps:
-* Add the library as a dependency in your build.gradle file.
+1. Add the JitPack repository to your settings.gradle file
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        // ...
+        maven { url "https://jitpack.io" }
+    }
+}
 ```
-implementation 'com.edorex.composeform:1.0.0'
+> Note: In older Android projects, the repositories are defined in the root build.gradle file.
+
+2. Add the dependency in your build.gradle file.
+```kotlin
+implementation 'com.github.benjamin-luescher:compose-form:0.2.0'
 ```
 
 ## Easy example
