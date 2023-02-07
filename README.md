@@ -1,6 +1,5 @@
 # Android Compose Form Library
-[![Release](https://jitpack.io/v/benjamin-luescher/compose-form.svg)]
-(https://jitpack.io/#benjamin-luescher/compose-form)
+![https://jitpack.io/#benjamin-luescher/compose-form](https://jitpack.io/v/benjamin-luescher/compose-form.svg)
 
 This library provides an easy-to-use and customizable solution for building forms in Android Jetpack Compose. It includes form fields such as text input, pickers, checkbox, and more, with built-in validators to ensure accurate user input. Data binding is also supported, making it easy to work with form data in your code.
 
