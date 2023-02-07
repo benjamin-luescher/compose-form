@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Compose Form</string>
+    <string name="general_cancel">Cancel</string>
+    <string name="general_search">Search</string>
+    <string name="error_empty">This field should not be empty</string>
+    <string name="error_min_length">This field doesn\'t match the min-length requirement.</string>
+    <string name="error_date_after_start_date">This date should be after start date.</string>
+</resources>
