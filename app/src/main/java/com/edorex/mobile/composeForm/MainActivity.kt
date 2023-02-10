@@ -108,6 +108,7 @@ fun FormPage() {
                             label = "End Date",
                             form = viewModel.form,
                             fieldState = viewModel.form.endDate,
+                            themeResId = R.style.customDatePickerStyle,
                             formatter = ::dateLong
                         ).Field()
 
