@@ -24,7 +24,8 @@ class DateField(
     isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
-    formatter: ((raw: Date?) -> String)? = null
+    formatter: ((raw: Date?) -> String)? = null,
+    private val themeResId: Int = 0
 ) : Field<Date>(
     label = label,
     form = form,
@@ -62,6 +63,7 @@ class DateField(
         val date = remember { mutableStateOf("") }
         val datePickerDialog = DatePickerDialog(
             context,
+            themeResId,
             { _: DatePicker, yyyy: Int, mm: Int, dd: Int ->
                 val c = Calendar.getInstance()
                 c.set(yyyy, mm, dd, 0, 0);
