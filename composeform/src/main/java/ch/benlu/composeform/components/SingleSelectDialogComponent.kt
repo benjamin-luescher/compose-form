@@ -65,7 +65,7 @@ fun <T> SingleSelectDialogComponent(
                     item {
                     }
                     items(
-                        items = search!!.invoke(optionsList, query.value),
+                        items = search?.invoke(optionsList, query.value) ?: optionsList,
                         key = { i ->
                             i.toString()
                         }
