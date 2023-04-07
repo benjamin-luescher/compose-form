@@ -69,7 +69,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.benjamin-luescher'
             artifactId = 'compose-form'
-            version = '0.2.1'
+            version = '0.2.2'
 
             afterEvaluate {
                 from components.release
