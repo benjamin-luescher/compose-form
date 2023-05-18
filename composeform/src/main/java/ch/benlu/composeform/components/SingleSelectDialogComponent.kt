@@ -22,7 +22,7 @@ fun <T> SingleSelectDialogComponent(
     optionsList: MutableList<T?>,
     defaultSelected: T?,
     submitButtonText: String,
-    onSubmitButtonClick: (T) -> Unit,
+    onSubmitButtonClick: (T?) -> Unit,
     onDismissRequest: () -> Unit,
     optionItemFormatter: ((T?) -> String)? = null,
     search: ((options: MutableList<T?>, query: String) -> List<T?>)? = null
@@ -102,7 +102,7 @@ fun <T> SingleSelectDialogComponent(
                         Button(
                             onClick = {
                                 if (selectedOption.value >= 0 && optionsList.size > selectedOption.value) {
-                                    onSubmitButtonClick.invoke(optionsList[selectedOption.value]!!)
+                                    onSubmitButtonClick.invoke(optionsList[selectedOption.value])
                                 }
                                 onDismissRequest.invoke()
                             },

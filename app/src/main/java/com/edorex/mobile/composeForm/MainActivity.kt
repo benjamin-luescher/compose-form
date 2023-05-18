@@ -95,6 +95,14 @@ fun FormPage() {
                             fieldState = viewModel.form.country
                         ).Field()
 
+                        PickerField(
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            label = "Country Not searchable",
+                            form = viewModel.form,
+                            fieldState = viewModel.form.countryNotSearchable,
+                            isSearchable = false
+                        ).Field()
+
                         DateField(
                             modifier = Modifier.padding(bottom = 8.dp),
                             label = "Start Date",

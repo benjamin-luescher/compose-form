@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 
 2. Add the dependency in your build.gradle file.
 ```kotlin
-implementation 'com.github.benjamin-luescher:compose-form:0.2.2'
+implementation 'com.github.benjamin-luescher:compose-form:0.2.3'
 ```
 
 ## Easy example
