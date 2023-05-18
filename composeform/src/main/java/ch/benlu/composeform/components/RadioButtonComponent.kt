@@ -23,7 +23,7 @@ fun <T>RadioButtonComponent(
         Modifier
             .fillMaxWidth()
             .selectable(
-                selected = ((value ?: label) == selectedValue),
+                selected = value == selectedValue,
                 onClick = {
                     onClickListener(value)
                 }
@@ -33,7 +33,7 @@ fun <T>RadioButtonComponent(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .align(alignment = Alignment.CenterVertically),
-            selected = ((value ?: label) == selectedValue),
+            selected = value == selectedValue,
             onClick = {
                 onClickListener(value)
             }

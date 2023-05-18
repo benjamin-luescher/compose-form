@@ -28,7 +28,8 @@ class PickerField<T: PickerValue>(
     isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
-    formatter: ((raw: T?) -> String)? = null
+    formatter: ((raw: T?) -> String)? = null,
+    private val isSearchable: Boolean = true
 ) : Field<T>(
     label = label,
     form = form,
@@ -86,10 +87,15 @@ class PickerField<T: PickerValue>(
                 onDismissRequest = {
                     isDialogVisible = false
                     focusManager.clearFocus()
+                },
+                search = if (isSearchable) {
+                    { options, query ->
+                        options.filter { c -> c?.searchFilter(query) == true }
+                    }
+                } else {
+                    null
                 }
-            ) { options, query ->
-                options.filter { c -> c?.searchFilter(query) == true }
-            }
+            )
         }
     }
 

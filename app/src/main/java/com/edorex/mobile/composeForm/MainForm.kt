@@ -76,6 +76,23 @@ class MainForm(resourcesProvider: ResourcesProvider): Form() {
     )
 
     @FormField
+    val countryNotSearchable = FieldState(
+        state = mutableStateOf<Country?>(null),
+        options = mutableListOf(
+            null,
+            Country(code = "CH", name = "Switzerland"),
+            Country(code = "DE", name = "Germany")
+        ),
+        optionItemFormatter = {
+            if (it != null) {
+                "${it.name} (${it.code})"
+            } else {
+                "All"
+            }
+        }
+    )
+
+    @FormField
     val startDate = FieldState(
         state = mutableStateOf<Date?>(null),
         validators = mutableListOf(
