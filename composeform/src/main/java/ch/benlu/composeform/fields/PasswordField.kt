@@ -28,6 +28,7 @@ class PasswordField(
     isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
+    changed: ((v: String?) -> Unit)? = null
 ) : Field<String>(
     label = label,
     form = form,
@@ -36,7 +37,8 @@ class PasswordField(
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
-    formatter = null
+    formatter = null,
+    changed = changed
 ) {
 
     /**

@@ -29,7 +29,8 @@ class PickerField<T: PickerValue>(
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     formatter: ((raw: T?) -> String)? = null,
-    private val isSearchable: Boolean = true
+    private val isSearchable: Boolean = true,
+    changed: ((v: T?) -> Unit)? = null
 ) : Field<T>(
     label = label,
     form = form,
@@ -38,7 +39,8 @@ class PickerField<T: PickerValue>(
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
-    formatter = formatter
+    formatter = formatter,
+    changed = changed
 ) {
 
     @Composable
