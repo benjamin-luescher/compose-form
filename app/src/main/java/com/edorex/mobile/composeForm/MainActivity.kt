@@ -2,6 +2,7 @@ package com.edorex.mobile.composeForm
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ch.benlu.composeform.fields.*
 import ch.benlu.composeform.formatters.dateLong
 import ch.benlu.composeform.formatters.dateShort
+import com.edorex.mobile.composeForm.models.Country
 import com.edorex.mobile.composeForm.ui.theme.ComposeFormTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,6 +58,12 @@ fun FormPage() {
                             label = "Name",
                             form = viewModel.form,
                             fieldState = viewModel.form.name,
+                            changed = {
+                                // log the name to show tat changed is called
+                                Log.d("Form", "Name changed: $it")
+                                // clear countries (for no reason - just to show that options list is now mutable)
+                                viewModel.form.country.options = mutableListOf()
+                            }
                         ).Field()
 
                         TextField(

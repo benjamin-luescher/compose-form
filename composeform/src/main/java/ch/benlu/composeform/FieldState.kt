@@ -9,7 +9,7 @@ class FieldState<T>(
     val errorText: MutableList<String> = mutableListOf(),
     val isValid: MutableState<Boolean?> = mutableStateOf(false),
     val hasChanges: MutableState<Boolean?> = mutableStateOf(false),
-    val options: MutableList<T>? = null,
+    var options: MutableList<T> = mutableListOf(),
     val optionItemFormatter: ((T?) -> String)? = null,
 ) {
     fun hasError(): Boolean {
@@ -17,10 +17,6 @@ class FieldState<T>(
     }
 
     fun selectedOption(): T? {
-        if (options == null) {
-            return null
-        }
-
         return options.firstOrNull { it == state.value }
     }
 
