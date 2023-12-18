@@ -23,7 +23,8 @@ class TextField(
     imeAction: ImeAction = ImeAction.Next,
     formatter: ((raw: String?) -> String)? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    changed: ((v: String?) -> Unit)? = null
 ) : Field<String>(
     label = label,
     form = form,
@@ -34,7 +35,8 @@ class TextField(
     imeAction = imeAction,
     formatter = formatter,
     keyboardType = keyboardType,
-    visualTransformation = visualTransformation
+    visualTransformation = visualTransformation,
+    changed = changed
 ) {
 
     /**

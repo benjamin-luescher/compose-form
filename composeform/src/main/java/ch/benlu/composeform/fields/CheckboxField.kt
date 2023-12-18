@@ -16,7 +16,8 @@ class CheckboxField(
     isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
-    formatter: ((raw: Boolean?) -> String)? = null
+    formatter: ((raw: Boolean?) -> String)? = null,
+    changed: ((v: Boolean?) -> Unit)? = null
 ) : Field<Boolean>(
     label = label,
     form = form,
@@ -25,7 +26,8 @@ class CheckboxField(
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
-    formatter = formatter
+    formatter = formatter,
+    changed = changed
 ) {
 
     /**

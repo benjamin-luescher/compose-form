@@ -25,7 +25,8 @@ class DateField(
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     formatter: ((raw: Date?) -> String)? = null,
-    private val themeResId: Int = 0
+    private val themeResId: Int = 0,
+    changed: ((v: Date?) -> Unit)? = null
 ) : Field<Date>(
     label = label,
     form = form,
@@ -34,7 +35,8 @@ class DateField(
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
-    formatter = formatter
+    formatter = formatter,
+    changed = changed
 ) {
 
     /**

@@ -19,7 +19,7 @@ abstract class Field<T> constructor(
     open val modifier: Modifier? = Modifier,
     open val imeAction: ImeAction? = ImeAction.Next,
     open val formatter: ((raw: T?) -> String)? = null,
-    var changed: ((v: T?) -> Unit)? = null
+    open var changed: ((v: T?) -> Unit)? = null
 ) {
     var value: MutableState<T?> = mutableStateOf(null)
 

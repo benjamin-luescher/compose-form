@@ -1,5 +1,6 @@
 package com.edorex.mobile.composeForm
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import ch.benlu.composeform.*
 import ch.benlu.composeform.validators.*
