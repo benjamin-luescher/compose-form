@@ -25,7 +25,6 @@ class PasswordField(
     form: Form,
     modifier: Modifier? = Modifier,
     fieldState: FieldState<String?>,
-    isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     changed: ((v: String?) -> Unit)? = null
@@ -33,7 +32,6 @@ class PasswordField(
     label = label,
     form = form,
     fieldState = fieldState,
-    isVisible = isVisible,
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
@@ -48,7 +46,7 @@ class PasswordField(
     @Composable
     override fun Field() {
         this.updateComposableValue()
-        if (!isVisible) {
+        if (!fieldState.isVisible()) {
             return
         }
 

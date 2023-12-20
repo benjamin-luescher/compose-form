@@ -1,6 +1,5 @@
 package com.edorex.mobile.composeForm
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import ch.benlu.composeform.*
 import ch.benlu.composeform.validators.*
@@ -45,6 +44,7 @@ class MainForm(resourcesProvider: ResourcesProvider): Form() {
     @FormField
     val passwordConfirm = FieldState(
         state = mutableStateOf<String?>(null),
+        isVisible = { password.state.value != null && password.state.value!!.isNotEmpty()  },
         validators = mutableListOf(
             IsEqualValidator({ password.state.value })
         )
@@ -83,15 +83,14 @@ class MainForm(resourcesProvider: ResourcesProvider): Form() {
             null,
             Country(code = "CH", name = "Switzerland"),
             Country(code = "DE", name = "Germany")
-        ),
-        optionItemFormatter = {
-            if (it != null) {
-                "${it.name} (${it.code})"
-            } else {
-                "All"
-            }
+        )
+    ) {
+        if (it != null) {
+            "${it.name} (${it.code})"
+        } else {
+            "All"
         }
-    )
+    }
 
     @FormField
     val startDate = FieldState(
