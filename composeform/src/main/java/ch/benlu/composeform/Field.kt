@@ -8,13 +8,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import java.util.*
 
-abstract class Field<T> constructor(
+abstract class Field<T> (
     open val fieldState: FieldState<T?>,
     open val label: String,
     open val form: Form,
     open val keyboardType: KeyboardType = KeyboardType.Text,
     open val visualTransformation: VisualTransformation = VisualTransformation.None,
-    open val isVisible: Boolean = true,
     open val isEnabled: Boolean = true,
     open val modifier: Modifier? = Modifier,
     open val imeAction: ImeAction? = ImeAction.Next,
