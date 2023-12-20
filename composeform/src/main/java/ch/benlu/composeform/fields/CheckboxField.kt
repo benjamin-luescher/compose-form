@@ -13,7 +13,6 @@ class CheckboxField(
     form: Form,
     modifier: Modifier? = Modifier,
     fieldState: FieldState<Boolean?>,
-    isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     formatter: ((raw: Boolean?) -> String)? = null,
@@ -22,7 +21,6 @@ class CheckboxField(
     label = label,
     form = form,
     fieldState = fieldState,
-    isVisible = isVisible,
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
@@ -36,7 +34,7 @@ class CheckboxField(
     @Composable
     override fun Field() {
         this.updateComposableValue()
-        if (!isVisible) {
+        if (!fieldState.isVisible()) {
             return
         }
         CheckboxComponent(

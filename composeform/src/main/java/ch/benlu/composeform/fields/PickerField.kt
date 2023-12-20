@@ -25,7 +25,6 @@ class PickerField<T: PickerValue>(
     form: Form,
     modifier: Modifier? = Modifier,
     fieldState: FieldState<T?>,
-    isVisible: Boolean = true,
     isEnabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     formatter: ((raw: T?) -> String)? = null,
@@ -35,7 +34,6 @@ class PickerField<T: PickerValue>(
     label = label,
     form = form,
     fieldState = fieldState,
-    isVisible = isVisible,
     isEnabled = isEnabled,
     modifier = modifier,
     imeAction = imeAction,
@@ -46,7 +44,7 @@ class PickerField<T: PickerValue>(
     @Composable
     override fun Field() {
         this.updateComposableValue()
-        if (!isVisible) {
+        if (!fieldState.isVisible()) {
             return
         }
 
