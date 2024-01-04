@@ -62,6 +62,7 @@ dependencies {
 
     // Reflection
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.5.4'
 }
 
 publishing {
@@ -69,7 +70,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.benjamin-luescher'
             artifactId = 'compose-form'
-            version = '0.2.5'
+            version = '0.2.6'
 
             afterEvaluate {
                 from components.release

@@ -1,28 +1,31 @@
 package ch.benlu.composeform.components
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -65,7 +68,13 @@ fun TextFieldComponent(
             enabled = isEnabled,
             colors = TextFieldDefaults.outlinedTextFieldColors(),
             isError = hasError,
-            label = { Text(label) },
+            label = {
+                Text(
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    text = label
+                )
+            },
             readOnly = isReadOnly,
             interactionSource = interactionSource ?: remember { MutableInteractionSource() },
             visualTransformation = visualTransformation,
@@ -81,7 +90,7 @@ fun TextFieldComponent(
     }
 }
 
-@Preview(uiMode = UI_MODE_NIGHT_NO)
+@Preview
 @Composable
 fun FormTextFieldPreview() {
     Surface {
@@ -98,6 +107,16 @@ fun FormTextFieldPreview() {
                 modifier = Modifier.padding(bottom = 8.dp),
                 text = "",
                 label = "My Label",
+                onChange = {},
+                keyBoardActions = KeyboardActions.Default,
+                isEnabled = true,
+                hasError = true,
+                errorText = mutableListOf("Should not be empty.")
+            )
+            TextFieldComponent(
+                modifier = Modifier.padding(bottom = 8.dp),
+                text = "",
+                label = "My Label which is very very very long and should be ellipsized",
                 onChange = {},
                 keyBoardActions = KeyboardActions.Default,
                 isEnabled = true,
