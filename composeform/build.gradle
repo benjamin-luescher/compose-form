@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace 'ch.benlu.composeform'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 35
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -29,15 +29,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    
+    composeOptions {
+        kotlinCompilerExtensionVersion = '1.5.14'
+    }
 
     buildFeatures {
         compose true
     }
 
-    ext {
-        compose_version = '1.2.0'
-        kotlin_version = '1.7.0'
-    }
 
     publishing {
         singleVariant("release") {
@@ -48,21 +48,31 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    // Use Compose BOM for consistent versions
+    implementation platform("androidx.compose:compose-bom:$compose_bom_version")
+    
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material:material-icons-extended'
+    implementation 'androidx.compose.runtime:runtime'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    
+    // Lifecycle components for optional lifecycle awareness
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-common:2.8.7'
+    
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     apply plugin: 'kotlin-kapt'
 
     // Reflection
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation 'androidx.compose.ui:ui-tooling'
 }
 
 publishing {
@@ -70,7 +80,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.benjamin-luescher'
             artifactId = 'compose-form'
-            version = '0.2.8'
+            version = '0.3.0'
 
             afterEvaluate {
                 from components.release

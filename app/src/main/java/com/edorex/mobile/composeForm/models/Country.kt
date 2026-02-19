@@ -7,6 +7,6 @@ data class Country(
     val name: String
 ): PickerValue() {
     override fun searchFilter(query: String): Boolean {
-        return this.name.startsWith(query)
+        return query.isEmpty() || this.name.contains(query, ignoreCase = true)
     }
 }

@@ -8,9 +8,6 @@ import com.edorex.mobile.composeForm.models.Country
 import java.util.*
 
 class MainForm(resourcesProvider: ResourcesProvider): Form() {
-    override fun self(): Form {
-        return this
-    }
 
     @FormField
     val name = FieldState(
@@ -110,6 +107,31 @@ class MainForm(resourcesProvider: ResourcesProvider): Form() {
                 errorText = resourcesProvider.getString(R.string.error_date_after_start_date)
             )
         )
+    )
+
+    @FormField
+    val rating = FieldState(
+        state = mutableStateOf<Float?>(null),
+        validators = mutableListOf(
+            NotEmptyValidator()
+        )
+    )
+
+    @FormField
+    val otp = FieldState(
+        state = mutableStateOf<String?>(null),
+        validators = mutableListOf(
+            NotEmptyValidator(),
+            MinLengthValidator(
+                minLength = 5,
+                errorText = resourcesProvider.getString(R.string.error_min_length)
+            )
+        )
+    )
+
+    @FormField
+    val newsletter = FieldState(
+        state = mutableStateOf<Boolean?>(null)
     )
 
     @FormField

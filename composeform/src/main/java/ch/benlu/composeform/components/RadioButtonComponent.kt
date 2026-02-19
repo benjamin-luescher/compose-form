@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -29,7 +29,7 @@ fun <T>RadioButtonComponent(
                 }
             )
     ) {
-        androidx.compose.material.RadioButton(
+        RadioButton(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .align(alignment = Alignment.CenterVertically),
@@ -40,16 +40,10 @@ fun <T>RadioButtonComponent(
         )
         Text(
             text = label,
-            style = MaterialTheme.typography.body1.merge(),
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .padding(8.dp)
                 .align(alignment = Alignment.CenterVertically)
         )
     }
-}
-
-@Composable
-@Preview
-fun RadioButtonPreview() {
-    RadioButtonComponent(label = "RadioButton", value = "", onClickListener = {}, selectedValue = "")
 }

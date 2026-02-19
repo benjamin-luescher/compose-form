@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
-import java.util.*
+
 
 abstract class Field<T> (
     open val fieldState: FieldState<T?>,
@@ -29,12 +29,15 @@ abstract class Field<T> (
         @Suppress("UNCHECKED_CAST")
         this.value.value = v as T?
         this.updateFormValue()
-        form.validate()
+        form.validateField(this.fieldState)
         changed?.invoke(v)
     }
 
     fun updateComposableValue() {
-        this.value.value = fieldState.state.value
+        val newValue = fieldState.state.value
+        if (this.value.value != newValue) {
+            this.value.value = newValue
+        }
     }
 
     private fun updateFormValue() {
