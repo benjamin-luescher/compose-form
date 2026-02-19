@@ -1,21 +1,45 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# ComposeForm Library ProGuard Rules
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Keep the FormField annotation
+-keep @interface ch.benlu.composeform.FormField
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep all classes that extend Form and their annotated fields
+-keep class * extends ch.benlu.composeform.Form {
+    <fields>;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Keep all fields annotated with @FormField in any class
+-keepclassmembers class * {
+    @ch.benlu.composeform.FormField <fields>;
+}
+
+# Keep FieldState class and all its members (used via reflection)
+-keep class ch.benlu.composeform.FieldState {
+    <fields>;
+    <methods>;
+}
+
+# Keep all Validator implementations
+-keep class * extends ch.benlu.composeform.Validator {
+    <init>(...);
+}
+
+# Keep all Field implementations
+-keep class * extends ch.benlu.composeform.Field {
+    <init>(...);
+}
+
+# Keep PickerValue implementations
+-keep class * extends ch.benlu.composeform.fields.PickerValue {
+    <fields>;
+    <methods>;
+}
+
+# Keep annotations attributes for runtime access
+-keepattributes RuntimeVisibleAnnotations, AnnotationDefault
+
+# Keep generic type information
+-keepattributes Signature
+
+# Keep line numbers for debugging
+-keepattributes SourceFile,LineNumberTable

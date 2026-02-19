@@ -11,7 +11,6 @@ import ch.benlu.composeform.Field
 import ch.benlu.composeform.FieldState
 import ch.benlu.composeform.Form
 import ch.benlu.composeform.components.TextFieldComponent
-import java.util.*
 
 class TextField(
     label: String,
@@ -37,9 +36,6 @@ class TextField(
     changed = changed
 ) {
 
-    /**
-     * Returns a composable representing the DateField / Picker for this field
-     */
     @SuppressLint("NotConstructor")
     @Composable
     override fun Field() {

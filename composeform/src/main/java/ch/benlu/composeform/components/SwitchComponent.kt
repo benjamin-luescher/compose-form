@@ -2,8 +2,8 @@ package ch.benlu.composeform.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,11 +13,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CheckboxComponent(
+fun SwitchComponent(
     modifier: Modifier = Modifier,
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit),
     label: String,
+    isEnabled: Boolean = true,
     hasError: Boolean = false,
     errorText: List<String>? = null
 ) {
@@ -26,6 +27,7 @@ fun CheckboxComponent(
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
             .clickable(
+                enabled = isEnabled,
                 onClick = { onCheckedChange(!checked) }
             )
         ) {
@@ -33,9 +35,10 @@ fun CheckboxComponent(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                Checkbox(
+                Switch(
                     checked = checked,
-                    onCheckedChange = null
+                    onCheckedChange = null,
+                    enabled = isEnabled
                 )
 
                 Spacer(Modifier.size(6.dp))

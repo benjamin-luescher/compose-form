@@ -3,6 +3,7 @@ package ch.benlu.composeform.fields
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -50,35 +51,44 @@ class DateField(
         val focusRequester = FocusRequester()
         val focusManager = LocalFocusManager.current
         val context = LocalContext.current
-        val year: Int
-        val month: Int
-        val day: Int
+        val showDialog = remember { mutableStateOf(false) }
 
-        val calendar = Calendar.getInstance()
-        calendar.time = value.value ?: Date()
-        year = calendar.get(Calendar.YEAR)
-        month = calendar.get(Calendar.MONTH)
-        day = calendar.get(Calendar.DAY_OF_MONTH)
+        if (showDialog.value) {
+            val calendar = Calendar.getInstance()
+            calendar.time = value.value ?: Date()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val date = remember { mutableStateOf("") }
-        val datePickerDialog = DatePickerDialog(
-            context,
-            themeResId,
-            { _: DatePicker, yyyy: Int, mm: Int, dd: Int ->
-                val c = Calendar.getInstance()
-                c.set(yyyy, mm, dd, 0, 0);
-                val d = c.time
-                date.value = d.toString()
-                value.value = d
-                this.onChange(d, form)
-            },
-            year,
-            month,
-            day
-        )
+            val datePickerDialog = remember {
+                DatePickerDialog(
+                    context,
+                    themeResId,
+                    { _: DatePicker, yyyy: Int, mm: Int, dd: Int ->
+                        val c = Calendar.getInstance()
+                        c.set(yyyy, mm, dd, 0, 0)
+                        val d = c.time
+                        value.value = d
+                        this.onChange(d, form)
+                        showDialog.value = false
+                    },
+                    year,
+                    month,
+                    day
+                ).apply {
+                    setOnDismissListener {
+                        showDialog.value = false
+                        focusManager.clearFocus()
+                    }
+                }
+            }
 
-        datePickerDialog.setOnDismissListener {
-            focusManager.clearFocus()
+            DisposableEffect(Unit) {
+                datePickerDialog.show()
+                onDispose {
+                    datePickerDialog.dismiss()
+                }
+            }
         }
 
         TextFieldComponent(
@@ -92,7 +102,7 @@ class DateField(
             focusRequester = focusRequester,
             focusChanged = {
                 if (it.isFocused) {
-                    datePickerDialog.show()
+                    showDialog.value = true
                 }
             }
         )

@@ -8,7 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     FormPage()
                 }
@@ -46,8 +46,8 @@ fun FormPage() {
     val viewModel = hiltViewModel<MainViewModel>()
 
     Scaffold(
-        content = {
-            Column(modifier = Modifier.padding(16.dp)) {
+        content = { paddingValues ->
+            Column(modifier = Modifier.padding(paddingValues).padding(16.dp)) {
                 Row(modifier = Modifier
                     .weight(1f)
                     .verticalScroll(rememberScrollState())) {
@@ -59,10 +59,8 @@ fun FormPage() {
                             form = viewModel.form,
                             fieldState = viewModel.form.name,
                             changed = {
-                                // log the name to show tat changed is called
+                                // log the name to show that changed is called
                                 Log.d("Form", "Name changed: $it")
-                                // clear countries (for no reason - just to show that options list is now mutable)
-                                viewModel.form.country.options = mutableListOf()
                             }
                         ).Field()
 
@@ -86,14 +84,22 @@ fun FormPage() {
                             modifier = Modifier.padding(bottom = 8.dp),
                             label = "Password",
                             form = viewModel.form,
-                            fieldState = viewModel.form.password
+                            fieldState = viewModel.form.password,
+                            changed = {
+                                // Cross-field: re-validate the whole form so
+                                // password-confirm error updates immediately
+                                viewModel.form.validate()
+                            }
                         ).Field()
 
                         PasswordField(
                             modifier = Modifier.padding(bottom = 8.dp),
                             label = "Password Confirm",
                             form = viewModel.form,
-                            fieldState = viewModel.form.passwordConfirm
+                            fieldState = viewModel.form.passwordConfirm,
+                            changed = {
+                                viewModel.form.validate()
+                            }
                         ).Field()
 
                         PickerField(
@@ -126,6 +132,30 @@ fun FormPage() {
                             fieldState = viewModel.form.endDate,
                             themeResId = R.style.customDatePickerStyle,
                             formatter = ::dateLong
+                        ).Field()
+
+                        SliderField(
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            label = "Rating",
+                            form = viewModel.form,
+                            fieldState = viewModel.form.rating,
+                            valueRange = 0f..10f,
+                            steps = 9
+                        ).Field()
+
+                        OtpField(
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            label = "Verification Code",
+                            form = viewModel.form,
+                            fieldState = viewModel.form.otp,
+                            length = 5
+                        ).Field()
+
+                        SwitchField(
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            fieldState = viewModel.form.newsletter,
+                            label = "Subscribe to newsletter",
+                            form = viewModel.form
                         ).Field()
 
                         CheckboxField(
@@ -175,7 +205,7 @@ fun ButtonRow(nextClicked: () -> Unit) {
 fun FormPagePreview() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+        color = MaterialTheme.colorScheme.background
     ) {
         FormPage()
     }
