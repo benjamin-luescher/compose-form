@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0
+
+### Breaking Changes
+
+- Requires **Kotlin 2.2+** in consuming projects (the library now depends on `kotlin-stdlib` / `kotlin-reflect` 2.2.0).
+
+### Changes
+
+- The library no longer writes to Logcat. Errors are still reported the same way: `FormFieldException` is thrown when field discovery fails, fields and the form are marked invalid when validation fails, and validator exceptions are added to the field's `errorText`.
+- Built with Android Gradle Plugin 9.4.1, Gradle 9.8.0 and Kotlin 2.4.20.
+- Demo app now targets and compiles against SDK 36.
+- Demo app uses Hilt 2.60.1 with KSP instead of kapt.
+
 ## 0.3.0
 
 ### Breaking Changes

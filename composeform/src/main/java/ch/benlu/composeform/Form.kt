@@ -1,6 +1,5 @@
 package ch.benlu.composeform
 
-import android.util.Log
 import androidx.compose.runtime.*
 import java.lang.reflect.Field
 
@@ -63,7 +62,6 @@ abstract class Form {
                         )
                     } catch (e: Exception) {
                         val errorMsg = "Failed to process @FormField annotated field '${field.name}': ${e.message}"
-                        Log.e("Form", errorMsg, e)
                         throw FormFieldException(errorMsg, e)
                     }
                 }
@@ -74,7 +72,6 @@ abstract class Form {
             throw e
         } catch (e: Exception) {
             val errorMsg = "Critical error during form field discovery: ${e.message}"
-            Log.e("Form", errorMsg, e)
             throw FormFieldException(errorMsg, e)
         }
     }
@@ -155,7 +152,7 @@ abstract class Form {
                 val fieldState = getFieldStateSafely(cachedField)
                 result[cachedField.name] = fieldState.state.value
             } catch (e: Exception) {
-                Log.e("Form", "Error reading field '${cachedField.name}': ${e.message}")
+                // Skip fields that cannot be read
             }
         }
         return result
@@ -191,16 +188,13 @@ abstract class Form {
                     }
                     
                 } catch (e: FormFieldException) {
-                    Log.e("Form", "Validation error for field '${cachedField.name}': ${e.message}")
                     formIsValid = false
                 } catch (e: Exception) {
-                    Log.e("Form", "Unexpected validation error for field '${cachedField.name}': ${e.message}")
                     formIsValid = false
                 }
             }
             
         } catch (e: Exception) {
-            Log.e("Form", "Critical error during form validation: ${e.message}", e)
             formIsValid = false
         }
 
@@ -230,7 +224,7 @@ abstract class Form {
                 }
             }
         } catch (e: Exception) {
-            Log.e("Form", "Error during single-field validation: ${e.message}", e)
+            // Fall through and recompute validity from cached field states
         }
         recomputeFormValidity()
     }
@@ -256,7 +250,6 @@ abstract class Form {
                 }
             }
         } catch (e: Exception) {
-            Log.e("Form", "Error recomputing form validity: ${e.message}", e)
             formIsValid = false
         }
         this.isValid = formIsValid
@@ -280,7 +273,6 @@ abstract class Form {
             @Suppress("UNCHECKED_CAST")
             val typedFieldState = fieldState as FieldState<Any>
             
-            val fieldName = cachedField.name
             val value = typedFieldState.state.value
             val validators = typedFieldState.validators
             
@@ -297,7 +289,6 @@ abstract class Form {
                         typedFieldState.errorText.add(validator.errorText)
                     }
                 } catch (e: Exception) {
-                    Log.e("Form", "Validator error for field '$fieldName': ${e.message}")
                     isFieldValid = false
                     typedFieldState.errorText.add("Validation error: ${e.message}")
                 }
@@ -314,10 +305,8 @@ abstract class Form {
             isFieldValid
             
         } catch (e: ClassCastException) {
-            Log.e("Form", "Type casting error for field '${cachedField.name}': ${e.message}")
             false
         } catch (e: Exception) {
-            Log.e("Form", "Error validating field '${cachedField.name}': ${e.message}")
             false
         }
     }
