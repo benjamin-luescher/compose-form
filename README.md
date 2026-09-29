@@ -26,7 +26,7 @@ dependencyResolutionManagement {
 **Using Version Catalog (recommended)** — add to `gradle/libs.versions.toml`:
 ```toml
 [versions]
-compose-form = "0.3.0"
+compose-form = "0.4.0"
 
 [libraries]
 compose-form = { group = "com.github.benjamin-luescher", name = "compose-form", version.ref = "compose-form" }
@@ -38,7 +38,7 @@ implementation(libs.compose.form)
 
 **Using build.gradle directly:**
 ```kotlin
-implementation 'com.github.benjamin-luescher:compose-form:0.3.0'
+implementation 'com.github.benjamin-luescher:compose-form:0.4.0'
 ```
 
 ## Easy example
